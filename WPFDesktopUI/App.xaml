@@ -1,0 +1,17 @@
+﻿<Application x:Class="WPFDemoUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPFDesktopUI"
+             xmlns:wpfDesktopUi="clr-namespace:WPFDesktopUI"
+             xmlns:converters="clr-namespace:WPFDesktopUI.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:Bootstrapper x:Key="Bootstrapper" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:VisibilityToCheckedConverter x:Key="VisibilityToCheckedConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

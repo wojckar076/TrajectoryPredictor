@@ -1,0 +1,148 @@
+﻿<Window x:Class="WPFDesktopUI.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpf="clr-namespace:InteractiveDataDisplay.WPF;assembly=mpolewaczyk.InteractiveDataDisplay.WPF"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Trajectory predictor" Height="500" Width="800" Background="Wheat">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Functions X Y-->
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical">
+            <TextBlock Text="Function:"/>
+            <DockPanel HorizontalAlignment="Left" Margin="5">
+                <TextBlock Text="x = "/>
+                <TextBox Text="{Binding Path=UiModel.FunctionX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" MaxWidth="200"/>
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Left" Margin="5">
+                <TextBlock Text="y = "/>
+                <TextBox Text="{Binding Path=UiModel.FunctionY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" MaxWidth="200"/>
+            </DockPanel>
+        </StackPanel>
+
+        <!--Range-->
+        <StackPanel  Grid.Column="1" Grid.Row="3" Orientation="Vertical" Margin="5">
+            <TextBlock Text="Draw in range:"/>
+            <DockPanel HorizontalAlignment="Left" Margin="5">
+                <TextBox Text="{Binding Path=UiModel.FirstPoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextAlignment="Center" Width="50"/>
+                <TextBlock Text="-" Margin="10,0,10,0"/>
+                <TextBox Text="{Binding Path=UiModel.LastPoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextAlignment="Center" Width="50"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Points in range: "/>
+                <TextBox Text="{Binding Path=UiModel.DrawRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextAlignment="Center" Width="50"/>
+            </DockPanel>
+        </StackPanel>
+
+        <!--Input Points-->
+        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Input layer points: "/>
+            <TextBox Text="{Binding Path=UiModel.InputLayerPoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextAlignment="Center" Width="40"/>
+        </StackPanel>
+
+        <!--Hidden Layers-->
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Vertical" Margin="5">
+            <TextBlock Text="Hidden layers:"/> 
+            <DockPanel>
+                <TextBlock Text="#1" DockPanel.Dock="Left" FontSize="10" Margin="22,0,0,0"/>
+                <TextBlock Text="#2" DockPanel.Dock="Left" FontSize="10" Margin="40,0,0,0"/>
+                <TextBlock Text="#3" DockPanel.Dock="Left" FontSize="10" Margin="37,0,0,0"/>
+                <TextBlock Text="#4" DockPanel.Dock="Left" FontSize="10" Margin="40,0,0,0"/>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <TextBox TextAlignment="Center" Text="{Binding Path=HiddenLayers[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" DockPanel.Dock="Left" Margin="10,5,0,0" MaxLength="2" Width="30"/>
+                <TextBox TextAlignment="Center" Text="{Binding Path=HiddenLayers[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" DockPanel.Dock="Left" Margin="20,5,0,0" MaxLength="2" Width="30"/>
+                <TextBox TextAlignment="Center" Text="{Binding Path=HiddenLayers[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" DockPanel.Dock="Left" Margin="20,5,0,0" MaxLength="2" Width="30"/>
+                <TextBox TextAlignment="Center" Text="{Binding Path=HiddenLayers[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" DockPanel.Dock="Left" Margin="20,5,0,0" MaxLength="2" Width="30"/>
+            </DockPanel>
+        </StackPanel>
+
+        <!--Network params-->
+        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Vertical">
+            <DockPanel Margin="5">
+                <TextBlock Text="Learning rate: "/>
+                <TextBox Text="{Binding Path=UiModel.LearningRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextAlignment="Center" Width="40" MaxLength="4" Margin="15,0,0,0"/>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <TextBlock Text="Momentum: "/>
+                <TextBox Text="{Binding Path=UiModel.Momentum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextAlignment="Center" Width="40" MaxLength="4" Margin="23,0,0,0"/>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <TextBlock Text="Steepness alpha: "/>
+                <TextBox Text="{Binding Path=UiModel.SteepnessAlpha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextAlignment="Center" Width="40" MaxLength="4"/>
+            </DockPanel>
+        </StackPanel>
+
+        <!--Info-->
+        <TextBlock Text="{Binding TextBlockMessage}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7"
+                   MaxWidth="200" TextWrapping="Wrap" Background="WhiteSmoke"/>
+
+        <!--ComboBox-->
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1">
+            <ComboBox Margin="5" x:Name="LearnedNetworks" SelectedItem="{Binding SelectedModel}" AlternationCount="2">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding FullName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <!--Buttons-->
+        <DockPanel Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="2" Margin="5" >
+            <Button x:Name="StartLearning" Margin="5" Padding="5" HorizontalAlignment="Left">Start Learning</Button>
+            <Button x:Name="Stop" Margin="5" Padding="5" HorizontalAlignment="Left">Stop</Button>
+            <Button x:Name="ShowProgress" Margin="150,0,0,0" Padding="5" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center">Show Learning <LineBreak/> Progress</TextBlock>
+            </Button>
+            <Button x:Name="Predict" Margin="5" Padding="5" HorizontalAlignment="Right">Predict</Button>
+        </DockPanel>
+
+        <!--Chart-->
+        <Grid Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="6" Background="White" Margin="0,10,0,0">
+            <wpf:Chart Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="6" Background="White">
+                <Grid x:Name="Lines">
+                    <wpf:LineGraph Description="Correct" Stroke="Green" StrokeThickness="0.8" Points="{Binding CorrectPointsGraph, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <wpf:LineGraph Description="Trained" Stroke="Red" StrokeThickness="0.8" Points="{Binding TrainedPointsGraph, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <wpf:LineGraph Description="Predicted" Stroke="Blue" StrokeThickness="0.8" Points="{Binding PredictedPointsGraph, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <wpf:Chart.LegendContent>
+                    <wpf:LegendItemsPanel>
+                        <wpf:LegendItemsPanel.Resources>
+                            <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"/>
+                                    <Line Width="15" Height="15" X1="-10" Y1="-10" X2="15" Y2="15" Stroke="{Binding Path=Stroke}" StrokeThickness="2"/>
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding Path=Description}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </wpf:LegendItemsPanel.Resources>
+                    </wpf:LegendItemsPanel>
+                </wpf:Chart.LegendContent>
+            </wpf:Chart>
+        </Grid>
+    </Grid>
+</Window>
